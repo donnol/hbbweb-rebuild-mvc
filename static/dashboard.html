@@ -3,7 +3,7 @@
 <title> home </title>
 <script type="text/javascript" src="scripts/jquery-1.11.1.min.js"></script>
 <script type="text/javascript" src="scripts/all.js"></script>
-<link type="text/css" href="./css/style.css" />
+<link type="text/css" href="css/style.css" />
 </head>
 <body>
 <script language="javascript">
@@ -14,7 +14,7 @@ $(document).ready(function(){
 				heightSync(left, right);
 				$('#logout').click(function(){
 						$.post(
-								"user.php?func=logout",
+								"../controller/user.php?func=logout",
 								function(){
 								location.href = 'index.html';}
 							  );

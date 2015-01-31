@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
-<link rel="stylesheet" type="text/css" href="./css/style.css" />
+<link rel="stylesheet" type="text/css" href="css/style.css" />
 <title>add book</title>
 <script type="text/javascript" src="scripts/jquery-1.11.1.min.js" ></script>
 <script type="text/javascript" src="scripts/all.js"></script>
@@ -28,7 +28,7 @@ $(document).ready(function(){
 						var page = pageele.val();
 						var content = contentele.val();
 						$.post(
-								"book.php?func=add",
+								"../controller/book.php?func=add",
 								{name:name, cate:cate,page:page, content:content},
 								function(data){
 								data = JSON.parse(data);

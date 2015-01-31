@@ -1,11 +1,12 @@
 <?php
-require_once(dirname(__FILE__).'/user/user.php');
+require_once(dirname(__FILE__).'/../model/user/user.php');
+require_once(dirname(__FILE__).'/../view/json.php');
 $user = new User();
 function add(){
 		global $user;
 		$result = $user->isLogin();
 		if( $result['code'] != 0 ){
-				echo json_encode($result);
+				show_view($result);
 				return;
 		}
 
@@ -18,26 +19,26 @@ function add(){
 						$_POST["addr"],
 						$_POST["cert"]
 						);
-		echo json_encode($result);
+		show_view($result);
 }
 function del(){
 		global $user;
 		$result = $user->isLogin();
 		if( $result['code'] != 0 ){
-				echo json_encode($result);
+				show_view($result);
 				return;
 		}
 
 		$result = $user->del(
 						$_GET["id"]
 						);
-		echo json_encode($result);
+		show_view($result);
 }
 function update(){
 		global $user;
 		$result = $user->isLogin();
 		if($result['code'] != 0){
-				echo json_encode($result);
+				show_view($result);
 				return;
 		}
 				
@@ -50,28 +51,28 @@ function update(){
 						$_POST["cert"],
 						$_GET["id"]
 						);
-		echo json_encode($result);
+		show_view($result);
 }
 function get(){
 		global $user;
 		$result = $user->isLogin();
 		if( $result['code'] != 0){
-				echo json_encode($result);
+				show_view($result);
 				return;
 		}
 		$result = $user->get();
-		echo json_encode($result);
+		show_view($result);
 }
 function getone(){
 		global $user;
 		$result = $user->isLogin();
 		if($result['code'] != 0){
-				echo json_encode($result);
+				show_view($result);
 				return;
 		}
 		$id = $_GET['id'];
 		$result = $user->getone($id);
-		echo json_encode($result);
+		show_view($result);
 }
 function login(){
 		global $user;
@@ -79,17 +80,17 @@ function login(){
 						$_POST['username'],
 						$_POST['pwd']
 						);
-		echo json_encode( $result );
+		show_view($result);
 }
 function logout(){
 		global $user;
 		$result = $user->logout();
-		echo json_encode( $result );
+		show_view($result);
 }
 function isLogin(){
 		global $user;
 		$result = $user->isLogin();
-		echo json_encode($result);
+		show_view($result);
 }
 $func = $_GET['func'];
 if( $func == 'add')

@@ -1,5 +1,5 @@
 <?php
-require_once(dirname(__FILE__).'/../common/db.php');
+require_once(dirname(__FILE__).'/../../common/db.php');
 class User{
 		private $hasSessionStart = false;
 		private $db;

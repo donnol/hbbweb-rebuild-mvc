@@ -67,7 +67,7 @@ function htmlDecode(str){
 //except the login page
 function isLogin(){
 		$.post(
-						"user.php?func=isLogin",
+						"../controller/user.php?func=isLogin",
 						function(data){
 						data = JSON.parse(data);
 						if(data.code != 0){
@@ -82,7 +82,7 @@ function isLogin(){
 //just for the login page
 function checkLogin(){
 		$.post(
-						"user.php?func=isLogin",
+						"../controller/user.php?func=isLogin",
 						function(data){
 						data = JSON.parse(data);
 						if(data.code == 0){

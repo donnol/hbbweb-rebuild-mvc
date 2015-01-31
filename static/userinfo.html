@@ -2,18 +2,19 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
-<link rel="stylesheet" type="text/css" href="./css/style.css" />
+<link rel="stylesheet" type="text/css" href="css/style.css" />
 <script type="text/javascript" src="scripts/jquery-1.11.1.min.js"></script>
 <script type="text/javascript" src="scripts/all.js"></script>
 <script language="javascript">
 $(document).ready(function(){	
 				isLogin();
+				$("#sub").hide();
 				$('#adduser').click(function(){
 						location.href = 'addUser.html';
 						});
 				if(true){
 				$.getJSON(
-						"user.php?func=get",
+						"../controller/user.php?func=get",
 						function(data){
 						if(data.code != 0)
 						{
@@ -53,7 +54,7 @@ $(document).ready(function(){
 								for(var i=0; i < rad.length; i++){
 								if(rad[i].checked){
 								radval = $("input:radio[name=rad]:checked").val();
-								url = "user.php?func=getone&id=" + radval;
+								url = "../controller/user.php?func=getone&id=" + radval;
 								$.post(
 										url,
 										function(data){
@@ -102,7 +103,7 @@ $(document).ready(function(){
 
 								var id = $("input[name=id]").val();
 								var url = "";
-								url = "user.php?func=update&id=" + id;
+								url = "../controller/user.php?func=update&id=" + id;
 								$.post(
 												url,
 												{name:name, tel:tel, addr:addr, cert:cert},
@@ -117,7 +118,7 @@ $(document).ready(function(){
 												}
 									  );
 
-								$("#sub").hide();
+							//	$("#sub").hide();
 								$("#deleteuser").show();
 								$("#adduser").show();
 				});
@@ -128,7 +129,7 @@ $(document).ready(function(){
 								for(var i = 0; i < rad.length; i++){
 								if(rad[i].checked){
 								radval = $("input:radio[name=rad]:checked").val();
-								url = "user.php?func=del&id=" + radval;
+								url = "../controller/user.php?func=del&id=" + radval;
 								$.post(
 										url,
 										function(data){

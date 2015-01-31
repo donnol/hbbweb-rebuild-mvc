@@ -1,6 +1,7 @@
 <?php
-require_once(dirname(__FILE__).'/user/user.php');
-require_once(dirname(__FILE__).'/book/book.php');
+require_once(dirname(__FILE__).'/../model/user/user.php');
+require_once(dirname(__FILE__).'/../model/book/book.php');
+require_once(dirname(__FILE__).'/../view/json.php');
 $user = new User();
 $book = new Book();
 function add(){
@@ -8,7 +9,7 @@ function add(){
 		global $book;
 		$result = $user->isLogin();
 		if( $result['code'] != 0 ){
-				echo json_encode($result);
+				show_view($result);
 				return;
 		}
 
@@ -18,28 +19,28 @@ function add(){
 						$_POST["page"],
 						$_POST["content"]
 						);
-		echo json_encode($result);
+		show_view($result);
 }
 function del(){
 		global $user;
 		global $book;
 		$result = $user->isLogin();
 		if( $result['code'] != 0 ){
-				echo json_encode($result);
+				show_view($result);
 				return;
 		}
 
 		$result = $book->del(
 						$_GET["id"]
 						);
-		echo json_encode($result);
+		show_view($result);
 }
 function update(){
 		global $user;
 		global $book;
 		$result = $user->isLogin();
 		if($result['code'] != 0){
-				echo json_encode($result);
+				show_view($result);
 				return;
 		}
 
@@ -50,31 +51,31 @@ function update(){
 						$_POST['content'],
 						$_GET['id']
 						);
-		echo json_encode($result);
+		show_view($result);
 }
 function get(){
 		global $user;
 		global $book;
 		$result = $user->isLogin();
 		if($result['code'] != 0){
-				echo json_encode($result);
+				show_view($result);
 				return;
 		}
 
 		$result = $book->get();
-		echo json_encode($result);
+		show_view($result);
 }
 function getone(){
 		global $user;
 		global $book;
 		$result = $user->isLogin();
 		if($result['code'] != 0){
-				echo json_encode($result);
+				show_view($result);
 				return;
 		}
 		$id = $_GET['id'];
 		$result = $book->getone($id);
-		echo json_encode($result);
+		show_view($result);
 }
 $func = $_GET['func'];
 if( $func == 'add')
