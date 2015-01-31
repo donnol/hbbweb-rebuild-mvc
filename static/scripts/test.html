@@ -1,0 +1,36 @@
+<html>
+<head>
+	<title>test</title>
+<script type="text/javascript" src="jquery-1.11.1.min.js"></script>
+<script type="text/javascript" src="all.js"></script>
+<script language="javascript">
+	$(function(){
+			var obj = {one:1, two:2, three:3};
+			$.each(obj, function(key, val){
+				//	alert(key);
+				//	alert(val);
+					});
+			
+			var obj = {0:{ id:1, name:2, tel:3, addr:4, cert:5},
+						1:{id:11, name:22, tel:33, addr:44, cert:55},
+						};
+			var head = tableHead(obj);
+			alert(head);
+			var body = tableBody(obj);
+			alert(body);
+			var strHtml = "";
+			strHtml += head + body;
+			var div1 = $('<div/>');
+			var div2 = $('<div/>');
+			div1.html(head);
+			div2.html(body);
+			div1.appendTo('body');
+			div2.appendTo('body');
+			//$("#d1").html(body);
+			});	
+</script>
+</head>
+<body>
+<div id="d1"></div>
+</body>
+</html>

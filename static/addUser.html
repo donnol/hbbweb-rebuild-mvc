@@ -1,0 +1,63 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>add user</title>
+<link rel="stylesheet" type="text/css" href="./css/style.css" />
+<script type="text/javascript" src="scripts/jquery-1.11.1.min.js"></script>
+<script type="text/javascript" src="scripts/all.js"></script>
+<script language="javascript">
+$(document).ready(function(){
+				isLogin();
+				$('#btn1').click(function(){
+						var nameele = $("input[name=name]");
+						var telele = $("input[name=tel]");
+						var addrele = $("input[name=addr]");
+						var certele = $("input[name=cert]");
+						if(isEmpty(nameele)){
+						location.href = "userinfo.html";
+						return false;
+						}
+
+						var name = nameele.val();
+						var tel = telele.val();
+						var addr = addrele.val();
+						var cert = certele.val();
+						$.post(
+								"user.php?func=add",{name:name,tel:tel,addr:addr,cert:cert},function(data){
+								data = JSON.parse(data);
+								if(data.code != 0){
+								alert(data.msg);
+								location.href = 'userinfo.html';
+								return false;
+								}
+								location.href = 'userinfo.html';
+								}
+							  );
+				});
+});
+</script>
+</head>
+
+<body>
+<form id="addUser" name="adduser">
+<table border="1" align="center">
+<tr>
+<td>Name <input type="text" name="name" align="left" class="nav_td_input"/></td>
+</tr>
+<tr>
+<td>Telephone <input type="text" name="tel" align="left" class="nav_td_input"/></td>
+</tr>
+<tr>
+<td>Address <input type="text" name="addr" align="left" class="nav_td_input" /></td>
+</tr>
+<tr>
+<td>Certificate <input type="text" name="cert" align="left" class="nav_td_input"/></td>
+</tr>
+<tr>
+<button id="btn1" type="button" name="submit" >提交</button>
+</tr>
+</table>
+</form>
+</body>
+</html>

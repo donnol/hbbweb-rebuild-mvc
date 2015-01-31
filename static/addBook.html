@@ -1,0 +1,72 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<link rel="stylesheet" type="text/css" href="./css/style.css" />
+<title>add book</title>
+<script type="text/javascript" src="scripts/jquery-1.11.1.min.js" ></script>
+<script type="text/javascript" src="scripts/all.js"></script>
+<script>
+$(document).ready(function(){
+				isLogin();
+				$("#btn1").click(function(){
+						var nameele = $("input[name=name]");
+						var cateele = $("input[name=cate]");
+						var pageele = $("input[name=page]");
+						var contentele = $("input[name=content]");
+						if(isEmpty(nameele)){
+						location.href = "bookinfo.html";
+						return false;
+						}
+						if(isEmpty(pageele)){
+						location.href = "bookinfo.html";
+						return false;
+						}
+
+						var name = nameele.val();
+						var cate = cateele.val();
+						var page = pageele.val();
+						var content = contentele.val();
+						$.post(
+								"book.php?func=add",
+								{name:name, cate:cate,page:page, content:content},
+								function(data){
+								data = JSON.parse(data);
+								if(data.code != 0){
+								alert(data.msg);
+								location.href = "bookinfo.html";
+								return false;
+								}
+								location.href = "bookinfo.html";
+								}
+							  );
+				});
+});
+</script>
+</head>
+
+<body>
+<div>
+<form id="addbook" name="addbook">
+<table border="1" align="center">
+<tr>
+<td>Name <input type="text" name="name" align="left" class="nav_td_input" /></td>
+</tr>
+<tr>
+<td>Category <input type="text" name="cate" align="left" class="nav_td_input"/></td>
+</tr>
+<tr>
+<td>Page <input type="text" name="page" align="left" class="nav_td_input" /></td>
+</tr>
+<tr>
+<td>Content <input type="text" name="content" align="left" class="nav_td_input" /></td>
+</tr>
+<tr>
+<button type="button" id="btn1">submit</button>
+</tr>
+</table>
+</form>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,164 @@
+<!DOCTYPE html PUBLIC "-//W4C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<link rel="stylesheet" type="text/css" href="./css/style.css" />
+<script type="text/javascript" src="scripts/jquery-1.11.1.min.js"></script>
+<script type="text/javascript" src="scripts/all.js"></script>
+<script language="javascript">
+$(document).ready(function(){	
+				isLogin();
+				$('#adduser').click(function(){
+						location.href = 'addUser.html';
+						});
+				if(true){
+				$.getJSON(
+						"user.php?func=get",
+						function(data){
+						if(data.code != 0)
+						{
+						alert(data.msg);
+						location.href = "userinfo.html";
+						return false;
+						}
+						var jsontip = $("#tagUser");
+						var strHtml = "";
+						strHtml = "<table border='1' align='center'>";
+						jsontip.empty();
+						strHtml += "<tr><td></td><td>id</td><td>name</td><td>tel</td><td>addr</td><td>cert</td></tr>";
+						$.each(
+								data.data,
+								function(infoindex, info){
+								strHtml += "<tr><td><input type='radio' name='rad' value='" +htmlEncode(info["id"]) + "'>";
+								strHtml += "</input></td><td>" + htmlEncode(info['id']) + "</td>";
+								strHtml += "<td>" + htmlEncode(info['name']) + "</td>";
+								strHtml += "<td>" + htmlEncode(info['tel']) + "</td>";
+								strHtml += "<td>" + htmlEncode(info['addr']) + "</td>";
+								strHtml += "<td>" + htmlEncode(info['cert']) + "</td>"; 
+								strHtml += "</tr>";
+								}	
+							  );
+						strHtml += "</table>";
+						jsontip.html(strHtml);		
+						}	
+				);
+				}
+				$("#changeuser").click(function(){
+								$("#deleteuser").hide();
+								$("#adduser").hide();
+								$("#sub").show();
+								var rad = $("input:radio[name=rad]");
+								var radval = 0;
+								var url = "";
+								for(var i=0; i < rad.length; i++){
+								if(rad[i].checked){
+								radval = $("input:radio[name=rad]:checked").val();
+								url = "user.php?func=getone&id=" + radval;
+								$.post(
+										url,
+										function(data){
+										data = JSON.parse(data);
+										if(data.code != 0){
+										alert(data.msg);
+										location.href = "userinfo.html";
+										return false;
+										}
+
+										var jsontip = $("#tagUser");
+										var strHtml = "";
+										jsontip.empty();
+										strHtml += "<table border='1' align='center'>";
+										strHtml += "<input type='hidden' name='id' value='" + radval +"'></input>";
+										$.each(
+												data.data,
+												function(infoIndex, info){
+												strHtml += "<tr><td>Name<input type='text' id='name' name='name' class='nav_td_input' align='left' value='" + htmlEncode(info['name']) + "'></input></td></tr>";
+												strHtml += "<tr><td>Tel<input type='text' id='tel' name='tel' class='nav_td_input' align='left' value='" + htmlEncode(info['tel']) + "'></input></td></tr>";
+												strHtml += "<tr><td>Addr<input type='text' id='addr' name='addr' class='nav_td_input' align='left' value='" + htmlEncode(info['addr']) + "'></input></td></tr>";
+												strHtml += "<tr><td>Cert<input type='text' id='cert' name='cert' class='nav_td_input' align='left' value='" + htmlEncode(info['cert']) + "'></input></td></tr>";
+												}
+											  );
+										strHtml += "</table>";
+										jsontip.html(strHtml);
+										}
+								);
+								}
+								}
+				});
+				$("#sub").click(function(){
+								var nameele = $("input[name=name]");
+								var telele = $("input[name=tel]");
+								var addrele = $("input[name=addr]");
+								var certele = $("input[name=cert]");
+								if(isEmpty(nameele)){
+								location.href = "userinfo.html";
+								return false;
+								}
+
+								var name = nameele.val();
+								var tel = telele.val();
+								var addr = addrele.val();
+								var cert = certele.val();
+
+								var id = $("input[name=id]").val();
+								var url = "";
+								url = "user.php?func=update&id=" + id;
+								$.post(
+												url,
+												{name:name, tel:tel, addr:addr, cert:cert},
+												function(data){
+												data = JSON.parse(data);
+												if(data.code != 0){
+												alert(data.msg);
+												location.href = "userinfo.html";
+												return false;
+												}
+												location.href = "userinfo.html";
+												}
+									  );
+
+								$("#sub").hide();
+								$("#deleteuser").show();
+								$("#adduser").show();
+				});
+				$("#deleteuser").click(function(){
+								var rad = $("input:radio[name=rad]");
+								var radval = 0;
+								var url = "";
+								for(var i = 0; i < rad.length; i++){
+								if(rad[i].checked){
+								radval = $("input:radio[name=rad]:checked").val();
+								url = "user.php?func=del&id=" + radval;
+								$.post(
+										url,
+										function(data){
+										data = JSON.parse(data);
+										if(data.code != 0){
+										alert(data.msg);
+										location.href = "userinfo.html";
+										return false;
+										}
+
+										location.href = "userinfo.html";
+										}
+									  );
+								}
+								}
+								$("#deletebook").hide();
+				});
+});
+</script>
+<title>user info</title>
+</head>
+<body>
+
+<div>
+<button id="adduser" name="adduser" type="button"  class="nav_btn">add</button>
+<button id="changeuser" name="changeuser" type="button" class="nav_btn">change</button>
+<button id="deleteuser" name="deleteuser" type="button" class="nav_btn">delete</button>
+<button id="sub" name="sub" type="button" class="nav_btn">submit</button>
+</div>
+
+<div id="tagUser"><h2>add user</h2></div>
+</body>
+</html>

@@ -1,0 +1,47 @@
+<html>
+<head>
+<title>404</title>
+<script type="text/javascript" src="scripts/jquery-1.11.1.min.js"></script>
+<script language="javascript">
+function htmlEncode(str){
+		return $('<div/>').text(str).html();
+}
+
+$(document).ready(function(){
+		$("#btn").click(function(){
+				alert($('<div/>'));
+			alert($('<div/>').text("</td>124<td>12321").html());
+			alert($('<div/>').html("</td>124<td>12321").text());
+			alert($('<div></div>'));
+			var div = $('<div/>');
+			div.text("</td>124<td>12321</td>");//.html();
+			div.appendTo('body');
+		});
+		var main = $('<div></div>');
+		main.attr('id', 'parent');
+		main.css({
+				'margin':'0',
+				'padding':'0',
+				'background-color':'#f1f2f3'
+				});
+		var str = "";
+		str = "<table border='1'></td>124<td>1213</td></table>";
+		main.text(str);
+		main.appendTo('body');
+
+		//
+		//alert($('div#dd').html());
+		$('div#dd').html("<p>Hello</p");
+		//alert($('div#dd').html());
+		var p = $("<p/>");
+		p.text("<td>some</td>new text.").html;
+		p.appendTo('body');
+				});
+</script>
+</head>
+<body>
+	<p>test.</P>
+	<div id="dd"><p>Hello</p></div>
+	<button type="button" id="btn">button</button>
+</body>
+</html>

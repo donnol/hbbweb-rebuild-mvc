@@ -1,0 +1,61 @@
+<html>
+<head>
+<title> home </title>
+<script type="text/javascript" src="scripts/jquery-1.11.1.min.js"></script>
+<script type="text/javascript" src="scripts/all.js"></script>
+<link type="text/css" href="./css/style.css" />
+</head>
+<body>
+<script language="javascript">
+$(document).ready(function(){
+				isLogin();
+				var left = $("#left");
+				var right = $("#tagContent");
+				heightSync(left, right);
+				$('#logout').click(function(){
+						$.post(
+								"user.php?func=logout",
+								function(){
+								location.href = 'index.html';}
+							  );
+						});
+				$("#h1").click(function(){
+						$("#ifra").attr("src", "userinfo.html?t=" + Math.random());
+						});
+				$("#h2").click(function(){
+						$("#ifra").attr("src", "bookinfo.html?t=" + Math.random());
+						});
+				});
+</script>
+<div>
+<div class="nav">
+<!-- wow, the time is so slow that i can feel it wasting -->
+welcome home
+<div>
+<button id="logout" name="logout" class="nav_td_input">log out</button>
+</div>
+</div>
+<!-- how to design? -->
+<div>
+<div id="left" class="nav_left">
+<ul id="tags">
+<li>
+<!--<a href="" id="h1">User information</a>-->
+<button type="button" id="h1">User information</button>
+</li>
+<li>
+<!--<a href="" id="h2">Book information</a>-->
+<button type="button" id="h2">Book information</button>
+</li>
+</ul>
+</div>
+<div id="tagContent" class="nav">
+
+<iframe src="" id="ifra" name="ifra" height="80%" width="80%">
+</iframe>
+
+</div>
+</div>
+</div>
+</body>
+</html>

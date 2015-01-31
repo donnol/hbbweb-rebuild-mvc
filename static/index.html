@@ -1,0 +1,53 @@
+<html>
+<head>
+<title> welcome </title>
+<link rel="stylesheet" type="text/css" href="./css/style.css" />
+<script type="text/javascript" src="scripts/jquery-1.11.1.min.js"></script>
+<script type="text/javascript" src="scripts/all.js"></script>
+</head>
+<body>
+<script language="javascript">
+$(document).ready(function(){
+				checkLogin();	
+				$("#btn1").click(function(){
+						var username = $('input[name=username]').val();	
+						var pwd = $('input[name=pwd]').val();	
+						$.post('user.php?func=login',{username:username,pwd:pwd},function(data){
+								data = JSON.parse(data);
+								if( data.code != 0 ){
+								alert( data.msg );
+								return false;
+								}	
+								location.href = 'dashboard.html';
+								});
+						});
+				});
+</script>
+
+<div class="nav">
+welcome to login or sign up.
+</div>
+<div>
+<form name="loginform" class="nav_form" >
+<table align="center">
+<tr>
+<td>User Name&nbsp;:<input id="username" type="text" name="username"></td>
+<!--<label class="error" id="name_error">must input</label>-->
+</tr>
+<tr>
+<td>Password&nbsp;&nbsp;:<input id="pwd" type="password" name="pwd"></td>
+<!--<td class="error" id="pwd_error">must input</td>-->
+</tr>
+<tr>
+<td>
+<button id="btn1" class="nav_form_submit" type="button" name="login">提交</button>
+</td>
+<td>
+<button id="btn2" class="nav_form_submit"  type="reset" name="reset"></button>
+</td>
+</tr>
+</table>
+</form>
+</div>
+</body>
+</html>
